@@ -10,19 +10,19 @@ struct ContentView: View {
     var body: some View {
         VStack(spacing: 20) {
             HStack {
-                Text("Gomoku")
+                Text(NSLocalizedString("Gomoku", comment: "App Title"))
                     .font(.largeTitle)
                     .fontWeight(.bold)
                 
                 Spacer()
                 
-                Toggle("AI Opponent", isOn: $viewModel.isAIEnabled)
+                Toggle(NSLocalizedString("AI Opponent", comment: "AI toggle"), isOn: $viewModel.isAIEnabled)
                     .toggleStyle(SwitchToggleStyle())
                     .disabled(!viewModel.canToggleAI)
                     .accessibilityIdentifier("AI Enabled")
-                    .accessibilityLabel("AI Opponent")
-                    .accessibilityHint(viewModel.canToggleAI ? "Toggle to enable or disable AI opponent" : "Cannot change AI setting during game")
-                    .accessibilityValue(viewModel.isAIEnabled ? "Enabled" : "Disabled")
+                    .accessibilityLabel(NSLocalizedString("AI Opponent", comment: "AI toggle"))
+                    .accessibilityHint(viewModel.canToggleAI ? NSLocalizedString("Toggle to enable or disable AI opponent", comment: "") : NSLocalizedString("Cannot change AI setting during game", comment: ""))
+                    .accessibilityValue(viewModel.isAIEnabled ? NSLocalizedString("Enabled", comment: "") : NSLocalizedString("Disabled", comment: ""))
             }
             .padding(.horizontal)
             
@@ -33,11 +33,12 @@ struct ContentView: View {
                             ProgressView()
                                 .progressViewStyle(CircularProgressViewStyle())
                                 .scaleEffect(0.8)
-                            Text(viewModel.aiThinkingProgress.isEmpty ? "AI is thinking..." : viewModel.aiThinkingProgress)
+                            Text(viewModel.aiThinkingProgress.isEmpty ? NSLocalizedString("AI is thinking...", comment: "") : viewModel.aiThinkingProgress)
                                 .font(.headline)
                                 .foregroundColor(.blue)
-                                .accessibilityLabel("AI Status")
+                                .accessibilityLabel(NSLocalizedString("AI Status", comment: ""))
                                 .accessibilityValue(viewModel.aiThinkingProgress)
+                                .accessibilityIdentifier("AIStatusLabel")
                         }
                         
                         if viewModel.aiEvaluatedMoves > 0 {
@@ -58,21 +59,22 @@ struct ContentView: View {
                     .background(Color.blue.opacity(0.1))
                     .cornerRadius(8)
                 } else {
-                    Text("Current Player: \(viewModel.currentPlayer.rawValue)")
+                    Text("\(NSLocalizedString("Current Player:", comment: "")) \(viewModel.currentPlayer.rawValue)")
                         .font(.title2)
-                        .accessibilityLabel("Current Player")
+                        .accessibilityLabel(NSLocalizedString("Current Player:", comment: ""))
                         .accessibilityValue(viewModel.currentPlayer.rawValue)
                         .accessibilityHint("The player who should make the next move")
+                        .accessibilityIdentifier("CurrentPlayerLabel")
                 }
                 
                 Spacer()
                 
                 if let winner = viewModel.winner {
-                    Text("Winner: \(winner.rawValue)")
+                    Text("\(NSLocalizedString("Winner:", comment: "")) \(winner.rawValue)")
                         .font(.title2)
                         .foregroundColor(.green)
-                        .accessibilityIdentifier("Winner: \(winner.rawValue)")
-                        .accessibilityLabel("Game Winner")
+                        .accessibilityIdentifier("WinnerLabel")
+                        .accessibilityLabel(NSLocalizedString("Game Winner", comment: ""))
                         .accessibilityValue("\(winner.rawValue) has won the game")
                         .accessibilityAddTraits(.isHeader)
                 }
@@ -86,8 +88,8 @@ struct ContentView: View {
                 ZStack {
                     BoardGrid(size: 15, cellSize: cellSize)
                         .accessibilityIdentifier("GameBoard")
-                        .accessibilityLabel("Game Board")
-                        .accessibilityHint("15 by 15 grid for playing Gomoku")
+                        .accessibilityLabel(NSLocalizedString("Game Board", comment: ""))
+                        .accessibilityHint(NSLocalizedString("15 by 15 grid for playing Gomoku", comment: ""))
                         .accessibilityElement(children: .ignore)
                     
                     ForEach(0..<15, id: \.self) { row in
@@ -118,16 +120,16 @@ struct ContentView: View {
             }
             
             HStack(spacing: 20) {
-                Button("New Game") {
+                Button(NSLocalizedString("New Game", comment: "")) {
                     viewModel.reset()
                 }
                 .buttonStyle(.borderedProminent)
                 .accessibilityIdentifier("New Game")
-                .accessibilityLabel("New Game")
-                .accessibilityHint("Start a new game, clearing the board")
+                .accessibilityLabel(NSLocalizedString("New Game", comment: ""))
+                .accessibilityHint(NSLocalizedString("Start a new game, clearing the board", comment: ""))
                 
                 if viewModel.isAIEnabled && viewModel.currentPlayer == .white && !viewModel.isGameOver {
-                    Button("AI Move") {
+                    Button(NSLocalizedString("AI Move", comment: "")) {
                         Task {
                             await viewModel.makeAIMove()
                         }
@@ -135,13 +137,21 @@ struct ContentView: View {
                     .buttonStyle(.bordered)
                     .disabled(viewModel.isAIThinking)
                     .accessibilityIdentifier("AI Move")
-                    .accessibilityLabel("Make AI Move")
-                    .accessibilityHint(viewModel.isAIThinking ? "AI is currently thinking" : "Trigger the AI to make its move")
+                    .accessibilityLabel(NSLocalizedString("Make AI Move", comment: ""))
+                    .accessibilityHint(viewModel.isAIThinking ? NSLocalizedString("AI is currently thinking", comment: "") : NSLocalizedString("Trigger the AI to make its move", comment: ""))
                 }
             }
             .padding()
         }
         .padding()
+        .onChange(of: viewModel.isGameOver) { _ in
+            if viewModel.shouldShowAlert {
+                alertTitle = viewModel.alertTitle
+                alertMessage = viewModel.alertMessage
+                showingAlert = true
+                UIAccessibility.post(notification: .screenChanged, argument: alertMessage)
+            }
+        }
         .alert(alertTitle, isPresented: $showingAlert) {
             Button("OK") { }
         } message: {

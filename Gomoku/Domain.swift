@@ -18,15 +18,15 @@ enum GameError: LocalizedError {
     var errorDescription: String? {
         switch self {
         case .invalidMove(let reason):
-            return "Invalid move: \(reason)"
+            return String(format: NSLocalizedString("Invalid move: %@", comment: ""), reason)
         case .gameAlreadyOver:
-            return "The game is already over"
+            return NSLocalizedString("The game is already over", comment: "")
         case .invalidBoardState:
-            return "Invalid board state"
+            return NSLocalizedString("Invalid board state", comment: "")
         case .positionOccupied(let row, let col):
-            return "Position (\(row), \(col)) is already occupied"
+            return String(format: NSLocalizedString("Position (%d, %d) is already occupied", comment: ""), row, col)
         case .outOfBounds(let row, let col):
-            return "Position (\(row), \(col)) is out of bounds"
+            return String(format: NSLocalizedString("Position (%d, %d) is out of bounds", comment: ""), row, col)
         }
     }
 }
@@ -38,5 +38,4 @@ protocol GameBoardDataSource {
     var currentPlayer: Player { get }
     var size: Int { get }
 }
-
 

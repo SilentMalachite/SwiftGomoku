@@ -40,11 +40,11 @@ class GameViewModel: ObservableObject {
     
     var alertTitle: String {
         if winner != nil {
-            return "Game Over"
+            return NSLocalizedString("Game Over", comment: "")
         } else if isGameOver {
-            return "Game Over"
+            return NSLocalizedString("Game Over", comment: "")
         } else {
-            return "Invalid Move"
+            return NSLocalizedString("Invalid Move", comment: "")
         }
     }
     
@@ -52,9 +52,9 @@ class GameViewModel: ObservableObject {
         if let winner = winner {
             return "\(winner.rawValue) wins!"
         } else if isGameOver {
-            return "It's a draw!"
+            return NSLocalizedString("It's a draw!", comment: "")
         } else {
-            return "This position is not available."
+            return NSLocalizedString("This position is not available.", comment: "")
         }
     }
     
@@ -139,73 +139,60 @@ class GameViewModel: ObservableObject {
     
     func makeAIMove() async {
         guard isAIEnabled && gameBoard.currentPlayer == .white && !isGameOver else { return }
-        
+
         // Cancel any existing AI task
         aiTask?.cancel()
-        
-        // Create new cancellable task
+
+        // Snapshot state on main actor
+        let boardSnapshot = gameBoard.board
+        let current = gameBoard.currentPlayer
+        let size = gameBoard.size
+        let engine = aiEngine
+
+        // Create new cancellable task (parent)
         aiTask = Task { @MainActor in
             isAIThinking = true
-            aiThinkingProgress = "Analyzing board..."
+            aiThinkingProgress = NSLocalizedString("Analyzing board...", comment: "")
             aiEvaluatedMoves = 0
             aiSearchDepth = 0
-            
-            // Check for cancellation
-            guard !Task.isCancelled else {
-                isAIThinking = false
-                return
-            }
-            
-            // Add slight delay for better UX
-            do {
-                try await Task.sleep(nanoseconds: 100_000_000) // 100ms
-            } catch {
-                // Task was cancelled
-                isAIThinking = false
-                return
-            }
-            
-            // Create progress handler
+
+            // Add slight delay for better UX and allow cancellation
+            do { try await Task.sleep(nanoseconds: 100_000_000) } catch { }
+
+            // Progress handler updates on main actor
             let progressHandler: (String, Int, Int) -> Void = { [weak self] message, moves, depth in
-                guard !Task.isCancelled else { return }
                 Task { @MainActor in
                     self?.aiThinkingProgress = message
                     self?.aiEvaluatedMoves = moves
                     self?.aiSearchDepth = depth
                 }
             }
-            
-            // Perform AI calculation in background
-            let move = await withTaskCancellationHandler {
-                await Task.detached(priority: .userInitiated) { [weak self] in
-                    guard let self = self else { return nil }
-                    guard !Task.isCancelled else { return nil }
-                    return self.aiEngine.getBestMove(for: self.gameBoard, progressHandler: progressHandler)
-                }.value
+
+            // Child task via task group to propagate cancellation
+            var chosenMove: (Int, Int)? = nil
+            await withTaskCancellationHandler {
+                await withTaskGroup(of: (Int, Int)?.self) { group in
+                    group.addTask(priority: .userInitiated) {
+                        let ds = BoardSnapshot(board: boardSnapshot, currentPlayer: current, size: size)
+                        return engine.getBestMove(for: ds, progressHandler: progressHandler)
+                    }
+                    chosenMove = await group.next() ?? nil
+                }
             } onCancel: {
-                // Handle cancellation
+                // nothing specific, UI cleanup happens below
             }
-            
-            // Check for cancellation before making the move
-            guard !Task.isCancelled else {
-                isAIThinking = false
-                aiThinkingProgress = ""
-                aiEvaluatedMoves = 0
-                aiSearchDepth = 0
-                return
-            }
-            
-            if let (row, col) = move {
-                aiThinkingProgress = "Making move..."
+
+            if let (row, col) = chosenMove, !isGameOver {
+                aiThinkingProgress = NSLocalizedString("Making move...", comment: "")
                 _ = makeMove(row: row, col: col)
             }
-            
+
             isAIThinking = false
             aiThinkingProgress = ""
             aiEvaluatedMoves = 0
             aiSearchDepth = 0
         }
-        
+
         await aiTask?.value
     }
     
@@ -217,4 +204,11 @@ class GameViewModel: ObservableObject {
         aiEvaluatedMoves = 0
         aiSearchDepth = 0
     }
+}
+
+// MARK: - Private Helpers
+private struct BoardSnapshot: GameBoardDataSource {
+    let board: [[Player]]
+    let currentPlayer: Player
+    let size: Int
 }

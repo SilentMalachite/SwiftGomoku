@@ -13,6 +13,8 @@ class AIEvaluator {
         static let oneInRow = 10
         static let openEndBonus = 5
         static let centerBonus = 10
+        static let doubleThreeBonus = 1500
+        static let doubleFourBonus = 5000
     }
     
     // MARK: - Evaluation Constants
@@ -55,6 +57,7 @@ class AIEvaluator {
         
         // Add center control bonus
         score += evaluateCenterControl(board: board, for: player, size: size)
+        score -= evaluateCenterControl(board: board, for: opponent, size: size) / 2
         
         return score
     }
@@ -117,6 +120,8 @@ class AIEvaluator {
     ) -> Int {
         var totalScore = 0
         let directions = [(0, 1), (1, 0), (1, 1), (1, -1)]
+        var openThreeCount = 0
+        var openFourCount = 0
         
         for (dx, dy) in directions {
             let pattern = analyzePattern(
@@ -130,8 +135,13 @@ class AIEvaluator {
             )
             
             totalScore += evaluatePattern(count: pattern.count, openEnds: pattern.openEnds)
+            if pattern.count == 3 && pattern.openEnds == 2 { openThreeCount += 1 }
+            if pattern.count == 4 && pattern.openEnds == 2 { openFourCount += 1 }
         }
-        
+        // Synergy bonuses: multiple simultaneous threats
+        if openThreeCount >= 2 { totalScore += Score.doubleThreeBonus }
+        if openFourCount >= 2 { totalScore += Score.doubleFourBonus }
+
         return totalScore
     }
     
@@ -143,9 +153,11 @@ class AIEvaluator {
     ) -> Int {
         var score = 0
         let directions = [(0, 1), (1, 0), (1, 1), (1, -1)]
+        var openThreeCount = 0
+        var openFourCount = 0
         
         for (dx, dy) in directions {
-            let lineScore = evaluateLine(
+            let pattern = evaluateLineFeatures(
                 row: row,
                 col: col,
                 dx: dx,
@@ -153,20 +165,25 @@ class AIEvaluator {
                 player: player,
                 boardData: boardData
             )
-            score += lineScore
+            score += evaluatePattern(count: pattern.count, openEnds: pattern.openEnds)
+            if pattern.count == 3 && pattern.openEnds == 2 { openThreeCount += 1 }
+            if pattern.count == 4 && pattern.openEnds == 2 { openFourCount += 1 }
         }
-        
+        // Synergy: prioritize double threats
+        if openThreeCount >= 2 { score += Score.doubleThreeBonus }
+        if openFourCount >= 2 { score += Score.doubleFourBonus }
+
         return score
     }
     
-    private func evaluateLine(
+    private func evaluateLineFeatures(
         row: Int,
         col: Int,
         dx: Int,
         dy: Int,
         player: Player,
         boardData: GameBoardDataSource
-    ) -> Int {
+    ) -> (count: Int, openEnds: Int) {
         var count = 0
         var openEnds = 0
         
@@ -193,8 +210,7 @@ class AIEvaluator {
         if r >= 0 && r < boardData.size && c >= 0 && c < boardData.size && boardData.board[r][c] == .none {
             openEnds += 1
         }
-        
-        return evaluatePattern(count: count, openEnds: openEnds)
+        return (count, openEnds)
     }
     
     // MARK: - Private Methods - Pattern Analysis

@@ -51,36 +51,27 @@ xcodebuild test -scheme Gomoku -destination 'platform=iOS Simulator,name=iPhone 
 
 ### ユニットテスト（`GomokuTests/`）
 
-- **AIEngineTests.swift**: AI移動生成とミニマックスアルゴリズムのテスト
+- **AIEngineTests.swift**: AI移動生成とミニマックスアルゴリズムの基本テスト
   - `testMinimaxChoosesBestMove()`
-  - `testAIBlocksOpponentWin()`
-  - `testAICompletesOwnWin()`
-  
-- **BoardEvaluatorTests.swift**: ボード評価ロジックのテスト
-  - `testEvaluateEmptyBoard()`
-  - `testEvaluateWinningPosition()`
-  - `testEvaluateDefensivePosition()`
+  - `testAIBlocksOpponentWin_Robust()`
+  - `testAICompletesOwnWin_Robust()`
+  - `testAICentersOnEmptyBoard()`
+  - `testAIHandlesInvalidBoardState()`
   
 - **GameBoardTests.swift**: ゲームボード状態管理のテスト
   - `testInitialBoardState()`
-  - `testValidMoves()`
+  - `testValidMovePlacement()`
   - `testInvalidMoves()`
-  
-- **GameStateCheckerTests.swift**: 勝利条件検出のテスト
-  - `testHorizontalWin()`
-  - `testVerticalWin()`
-  - `testDiagonalWin()`
-  - `testNoWin()`
+  - `testOutOfBoundsMoves()`
+  - `testSwitchPlayer()`
+  - `testHorizontalWinDetection()` ほか
   
 - **GameViewModelTests.swift**: ゲームフローと状態遷移のテスト
   - `testGameInitialization()`
   - `testPlayerTurns()`
-  - `testAIMode()`
-  
-- **PatternAnalyzerTests.swift**: パターン認識のテスト
-  - `testOpenFourDetection()`
-  - `testClosedFourDetection()`
-  - `testThreePatternDetection()`
+  - `testInvalidMoves()`
+  - `testGameOverMoves()`
+  - `testHorizontalWin()` ほか
 
 ### UIテスト（`GomokuUITests/`）
 
@@ -88,6 +79,7 @@ xcodebuild test -scheme Gomoku -destination 'platform=iOS Simulator,name=iPhone 
   - `testGameplayFlow()`
   - `testAIToggle()`
   - `testNewGameButton()`
+  - `testInvalidMove()` ほか
   
 - **GomokuUITestsLaunchTests.swift**: アプリ起動とパフォーマンステスト
 
@@ -123,21 +115,21 @@ Xcode プロジェクトにテストターゲットがない場合：
 
 ## UIテスト用のアクセシビリティ識別子
 
-UIテストが正しく動作するために、`ContentView.swift` に以下のアクセシビリティ識別子を設定してください：
+このプロジェクトでは既に以下の識別子を使用しています（UIテストと一致）：
 
 ```swift
 // ゲームボード
 .accessibilityIdentifier("GameBoard")
 
-// 個々のセル
+// 個々のセル（空のとき）
 .accessibilityIdentifier("Cell_\(row)_\(col)")
 
-// 石
-.accessibilityIdentifier("Stone_\(color)_\(row)_\(col)")
+// 石（配置済みのとき）
+.accessibilityIdentifier("Stone_\(player.rawValue)_\(row)_\(col)")
 
-// ボタン
-.accessibilityIdentifier("NewGameButton")
-.accessibilityIdentifier("AIToggle")
+// ボタン/トグル
+Toggle: .accessibilityIdentifier("AI Enabled")
+Button(新規ゲーム): .accessibilityIdentifier("New Game")
 ```
 
 ## 新しいテストの作成

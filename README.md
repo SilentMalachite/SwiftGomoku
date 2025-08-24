@@ -2,7 +2,7 @@
 
 Swift と SwiftUI で構築されたネイティブ iOS 五目並べアプリケーション。
 
-![Swift](https://img.shields.io/badge/Swift-5.0-orange.svg)
+![Swift](https://img.shields.io/badge/Swift-5.7-orange.svg)
 ![Platform](https://img.shields.io/badge/Platform-iOS%2016.0%2B-blue.svg)
 ![License](https://img.shields.io/badge/License-MIT-green.svg)
 
@@ -18,6 +18,7 @@ Swift と SwiftUI で構築されたネイティブ iOS 五目並べアプリケ
 - 勝利ラインの強化されたビジュアルフィードバック（アニメーション付き）
 - レスポンシブなボードデザイン
 - 完全なアクセシビリティサポート（VoiceOver対応）
+ - ローカライズ（英語/日本語）対応、UIテスト向けの安定識別子
 
 ## 実装済み機能
 
@@ -44,7 +45,7 @@ Swift と SwiftUI で構築されたネイティブ iOS 五目並べアプリケ
 
 - iOS 16.0 以降
 - Xcode 14.0 以降
-- Swift 5.0 以降
+- Swift 5.7 以降
 
 ## インストール
 
@@ -82,7 +83,8 @@ Swift-Gomoku/
 │   ├── GameBoard.swift       # ゲームボードモデル
 │   ├── AIEngine.swift        # ミニマックスアルゴリズムを使用したAIロジック
 │   ├── AIEvaluator.swift     # ボード評価とパターン認識
-│   └── Gomoku.entitlements   # アプリ権限
+│   ├── Base.lproj/Localizable.strings  # 英語(ベース)文言
+│   └── ja.lproj/Localizable.strings    # 日本語文言
 ├── GomokuTests/              # ユニットテスト
 ├── GomokuUITests/            # UIテスト
 ├── LICENSE                   # MITライセンス
@@ -98,8 +100,8 @@ Swift-Gomoku/
 - **Model**: `Player` 列挙型とボード配列で表現されるゲーム状態
 - **View**: `ContentView` がSwiftUIインターフェースとアクセシビリティを提供
 - **ViewModel**: `GameViewModel` がゲームロジック、状態管理、タスク管理を行う
-- **AIロジック**: `AIEngine` がアルファベータ枝刈りを使用したミニマックスアルゴリズムを実装
-- **評価器**: `AIEvaluator` がボード評価とパターン認識を提供
+- **AIロジック**: `AIEngine` がアルファベータ枝刈りを使用したミニマックスアルゴリズムを実装（構造化並行でキャンセル伝播）
+- **評価器**: `AIEvaluator` がボード評価とパターン認識を提供（ダブルスレート等のシナジー評価含む）
 
 ## AI実装
 
@@ -109,16 +111,28 @@ AIは高度なミニマックスアルゴリズムを使用：
 - **進行状況追跡**: 評価中のポジション数と探索深度のリアルタイム表示
 - **非同期実行**: UIの応答性を保つためのTask管理
 - **キャンセレーション**: 適切なタスクキャンセル処理
+ - **シナジー評価**: 複数のオープン3/4（ダブルスレート）を加点し、勝ち/ブロックをより自然に選好
 
 ## テスト
 
-プロジェクトにはテストファイルが含まれています。テストの実装は今後の改善項目です。
+プロジェクトにはユニット/ UI テストが含まれています。共有スキーム `Gomoku` で実行できます。
 
 テストの実行：
 ```bash
-# Xcode で
-# Cmd+U を押す
+# すべてのテスト
+xcodebuild test -scheme Gomoku -destination 'platform=iOS Simulator,name=iPhone 15'
+
+# ユニットテストのみ
+xcodebuild test -scheme Gomoku -destination 'platform=iOS Simulator,name=iPhone 15' -only-testing:GomokuTests
+
+# UIテストのみ
+xcodebuild test -scheme Gomoku -destination 'platform=iOS Simulator,name=iPhone 15' -only-testing:GomokuUITests
 ```
+
+UIテストは表示テキストに依存せず、以下のアクセシビリティ識別子を使用します：
+- `GameBoard`, `Cell_{row}_{col}`, `Stone_{color}_{row}_{col}`
+- `AI Enabled`, `New Game`, `AI Move`
+- `CurrentPlayerLabel`, `AIStatusLabel`, `WinnerLabel`
 
 詳細なテストセットアップ手順については、[README_TEST_SETUP.md](README_TEST_SETUP.md) を参照してください。
 
@@ -138,6 +152,12 @@ AIは高度なミニマックスアルゴリズムを使用：
 - [ ] iPad 最適化インターフェース
 - [ ] 元に戻す/やり直し機能
 - [ ] 競技プレイ用の時間制限
+
+## ローカライズ
+
+- 対応言語: 英語（Base）、日本語（`ja`）
+- 文言は `NSLocalizedString` で参照され、`Gomoku/Base.lproj/Localizable.strings` と `Gomoku/ja.lproj/Localizable.strings` に定義
+- 言語追加手順: Xcode で `Localizable.strings` にローカライズを追加し、必要なキーの翻訳を追加
 
 ## サポート
 

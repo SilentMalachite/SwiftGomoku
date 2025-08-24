@@ -94,7 +94,7 @@ Swift 五目並べへのコントリビューションを検討していただ�
 
 - macOS 13.0 以降
 - Xcode 14.0 以降
-- Swift 5.0 以降
+ - Swift 5.7 以降
 - Git
 
 ### 始め方
@@ -123,6 +123,22 @@ xcodebuild test -scheme Gomoku -destination 'platform=iOS Simulator,name=iPhone 
 # UIテストを実行
 xcodebuild test -scheme Gomoku -destination 'platform=iOS Simulator,name=iPhone 15' -only-testing:GomokuUITests
 ```
+
+### UI識別子の原則（重要）
+
+UIテストは表示テキストに依存せず、以下のアクセシビリティ識別子を使用してください：
+
+- 盤面とセル/石: `GameBoard`, `Cell_{row}_{col}`, `Stone_{color}_{row}_{col}`
+- 操作: `AI Enabled`, `New Game`, `AI Move`
+- 状態表示: `CurrentPlayerLabel`, `AIStatusLabel`, `WinnerLabel`
+
+表示文言はローカライズされるため、`staticTexts["..."]` のような固定文字列参照は避け、識別子ベースで選択/検証してください。
+
+### ローカライズ方針
+
+- 文字列は `NSLocalizedString` で参照し、`Localizable.strings` にキーを定義します。
+- 既定（Base）は `Gomoku/Base.lproj/Localizable.strings`、日本語は `Gomoku/ja.lproj/Localizable.strings` に追加します。
+- 新規UIやエラーメッセージを追加する場合は、必ず各言語にキーを追加し、レビュー時に翻訳が欠落していないことを確認してください。
 
 ## スタイルガイド
 

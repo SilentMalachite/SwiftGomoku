@@ -10,19 +10,34 @@
 		1A1A1A1A1A1A1A1A1A1A1A1A /* GomokuApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A2A2A2A2A2A2A2A2A2A2A2A /* GomokuApp.swift */; };
 		1B1B1B1B1B1B1B1B1B1B1B1B /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B2B2B2B2B2B2B2B2B2B2B2B /* ContentView.swift */; };
 		1D1D1D1D1D1D1D1D1D1D1D1D /* AIEngine.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D2D2D2D2D2D2D2D2D2D2D2D /* AIEngine.swift */; };
-		1E1E1E1E1E1E1E1E1E1E1E1E1E /* AIUtilities.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E2E2E2E2E2E2E2E2E2E2E2E /* AIUtilities.swift */; };
+		1E1E1E1E1E1E1E1E1E1E1E1E1F /* AIEvaluator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2H2H2H2H2H2H2H2H2H2H2H2H /* AIEvaluator.swift */; };
+		1H1H1H1H1H1H1H1H1H1H1H1H /* Domain.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2H3H3H3H3H3H3H3H3H3H3H3H /* Domain.swift */; };
 		1F1F1F1F1F1F1F1F1F1F1F1F /* GameViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F2F2F2F2F2F2F2F2F2F2F2F /* GameViewModel.swift */; };
-		1G1G1G1G1G1G1G1G1G1G1G1G /* GameBoard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2G2G2G2G2G2G2G2G2G2G2G2G /* GameBoard.swift */; };
+        1G1G1G1G1G1G1G1G1G1G1G1G /* GameBoard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2G2G2G2G2G2G2G2G2G2G2G2G /* GameBoard.swift */; };
+        1L1L1L1L1L1L1L1L1L1L1L1L /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 4L4L4L4L4L4L4L4L4L4L4L4L /* Localizable.strings */; };
+        1T1T1T1T1T1T1T1T1T1T1T1T /* GameBoardTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2T1T1T1T1T1T1T1T1T1T1T1T /* GameBoardTests.swift */; };
+        1T2T2T2T2T2T2T2T2T2T2T2T /* GameViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2T2T2T2T2T2T2T2T2T2T2T2T /* GameViewModelTests.swift */; };
+        1T3T3T3T3T3T3T3T3T3T3T3T /* AIEngineTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2T3T3T3T3T3T3T3T3T3T3T3T /* AIEngineTests.swift */; };
+        1U1U1U1U1U1U1U1U1U1U1U1U /* GomokuUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2U1U1U1U1U1U1U1U1U1U1U1U /* GomokuUITests.swift */; };
+        1U2U2U2U2U2U2U2U2U2U2U2U /* GomokuUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2U2U2U2U2U2U2U2U2U2U2U2U /* GomokuUITestsLaunchTests.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		0A0A0A0A0A0A0A0A0A0A0A0A /* Gomoku.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Gomoku.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		0B0B0B0B0B0B0B0B0B0B0B0B /* GomokuTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = GomokuTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		0C0C0C0C0C0C0C0C0C0C0C0C /* GomokuUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = GomokuUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		2A2A2A2A2A2A2A2A2A2A2A2A /* GomokuApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GomokuApp.swift; sourceTree = "<group>"; };
 		2B2B2B2B2B2B2B2B2B2B2B2B /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		2D2D2D2D2D2D2D2D2D2D2D2D /* AIEngine.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AIEngine.swift; sourceTree = "<group>"; };
-		2E2E2E2E2E2E2E2E2E2E2E2E /* AIUtilities.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AIUtilities.swift; sourceTree = "<group>"; };
+		2H2H2H2H2H2H2H2H2H2H2H2H /* AIEvaluator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AIEvaluator.swift; sourceTree = "<group>"; };
+		2H3H3H3H3H3H3H3H3H3H3H3H /* Domain.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Domain.swift; sourceTree = "<group>"; };
 		2F2F2F2F2F2F2F2F2F2F2F2F /* GameViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameViewModel.swift; sourceTree = "<group>"; };
 		2G2G2G2G2G2G2G2G2G2G2G2G /* GameBoard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameBoard.swift; sourceTree = "<group>"; };
+		2T1T1T1T1T1T1T1T1T1T1T1T /* GameBoardTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameBoardTests.swift; sourceTree = "<group>"; };
+		2T2T2T2T2T2T2T2T2T2T2T2T /* GameViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameViewModelTests.swift; sourceTree = "<group>"; };
+		2T3T3T3T3T3T3T3T3T3T3T3T /* AIEngineTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AIEngineTests.swift; sourceTree = "<group>"; };
+		2U1U1U1U1U1U1U1U1U1U1U1U /* GomokuUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GomokuUITests.swift; sourceTree = "<group>"; };
+		2U2U2U2U2U2U2U2U2U2U2U2U /* GomokuUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GomokuUITestsLaunchTests.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -33,6 +48,20 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+        3B3B3B3B3B3B3B3B3B3B3B3B /* Frameworks */ = {
+            isa = PBXFrameworksBuildPhase;
+            buildActionMask = 2147483647;
+            files = (
+            );
+            runOnlyForDeploymentPostprocessing = 0;
+        };
+        3C3C3C3C3C3C3C3C3C3C3C3C /* Frameworks */ = {
+            isa = PBXFrameworksBuildPhase;
+            buildActionMask = 2147483647;
+            files = (
+            );
+            runOnlyForDeploymentPostprocessing = 0;
+        };
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
@@ -40,6 +69,8 @@
 			isa = PBXGroup;
 			children = (
 				5A5A5A5A5A5A5A5A5A5A5A5A /* Gomoku */,
+				5B5B5B5B5B5B5B5B5B5B5B5B /* GomokuTests */,
+				5C5C5C5C5C5C5C5C5C5C5C5C /* GomokuUITests */,
 				4B4B4B4B4B4B4B4B4B4B4B4B /* Products */,
 			);
 			sourceTree = "<group>";
@@ -48,8 +79,29 @@
 			isa = PBXGroup;
 			children = (
 				0A0A0A0A0A0A0A0A0A0A0A0A /* Gomoku.app */,
+				0B0B0B0B0B0B0B0B0B0B0B0B /* GomokuTests.xctest */,
+				0C0C0C0C0C0C0C0C0C0C0C0C /* GomokuUITests.xctest */,
 			);
 			name = Products;
+			sourceTree = "<group>";
+		};
+		5B5B5B5B5B5B5B5B5B5B5B5B /* GomokuTests */ = {
+			isa = PBXGroup;
+			children = (
+				2T1T1T1T1T1T1T1T1T1T1T1T /* GameBoardTests.swift */,
+				2T2T2T2T2T2T2T2T2T2T2T2T /* GameViewModelTests.swift */,
+				2T3T3T3T3T3T3T3T3T3T3T3T /* AIEngineTests.swift */,
+			);
+			path = GomokuTests;
+			sourceTree = "<group>";
+		};
+		5C5C5C5C5C5C5C5C5C5C5C5C /* GomokuUITests */ = {
+			isa = PBXGroup;
+			children = (
+				2U1U1U1U1U1U1U1U1U1U1U1U /* GomokuUITests.swift */,
+				2U2U2U2U2U2U2U2U2U2U2U2U /* GomokuUITestsLaunchTests.swift */,
+			);
+			path = GomokuUITests;
 			sourceTree = "<group>";
 		};
 		5A5A5A5A5A5A5A5A5A5A5A5A /* Gomoku */ = {
@@ -59,13 +111,27 @@
 				2B2B2B2B2B2B2B2B2B2B2B2B /* ContentView.swift */,
 				2F2F2F2F2F2F2F2F2F2F2F2F /* GameViewModel.swift */,
 				2G2G2G2G2G2G2G2G2G2G2G2G /* GameBoard.swift */,
-				2D2D2D2D2D2D2D2D2D2D2D2D /* AIEngine.swift */,
-				2E2E2E2E2E2E2E2E2E2E2E2E /* AIUtilities.swift */,
-			);
-			path = Gomoku;
-			sourceTree = "<group>";
-		};
+                2D2D2D2D2D2D2D2D2D2D2D2D /* AIEngine.swift */,
+                2H2H2H2H2H2H2H2H2H2H2H2H /* AIEvaluator.swift */,
+                2H3H3H3H3H3H3H3H3H3H3H3H /* Domain.swift */,
+                4L4L4L4L4L4L4L4L4L4L4L4L /* Localizable.strings */,
+            );
+            path = Gomoku;
+            sourceTree = "<group>";
+        };
 /* End PBXGroup section */
+
+/* Begin PBXVariantGroup section */
+        4L4L4L4L4L4L4L4L4L4L4L4L /* Localizable.strings */ = {
+            isa = PBXVariantGroup;
+            children = (
+                3L1L1L1L1L1L1L1L1L1L1L1L /* Base */,
+                3L2L2L2L2L2L2L2L2L2L2L2L /* ja */,
+            );
+            name = Localizable.strings;
+            sourceTree = "<group>";
+        };
+/* End PBXVariantGroup section */
 
 /* Begin PBXNativeTarget section */
 		6A6A6A6A6A6A6A6A6A6A6A6A /* Gomoku */ = {
@@ -85,6 +151,64 @@
 			productReference = 0A0A0A0A0A0A0A0A0A0A0A0A /* Gomoku.app */;
 			productType = "com.apple.product-type.application";
 		};
+        /* End PBXNativeTarget section */
+/* End PBXNativeTarget section */
+
+/* Begin PBXContainerItemProxy section */
+		901901901901901901901901 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = AA1AA1AA1AA1AA1AA1AA1AA1 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 6A6A6A6A6A6A6A6A6A6A6A6A;
+			remoteInfo = Gomoku;
+		};
+		902902902902902902902902 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = AA1AA1AA1AA1AA1AA1AA1AA1 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 6A6A6A6A6A6A6A6A6A6A6A6A;
+			remoteInfo = Gomoku;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXTargetDependency section */
+		801801801801801801801801 /* PBXTargetDependency */ = {isa = PBXTargetDependency; target = 6A6A6A6A6A6A6A6A6A6A6A6A /* Gomoku */; targetProxy = 901901901901901901901901 /* PBXContainerItemProxy */; };
+		802802802802802802802802 /* PBXTargetDependency */ = {isa = PBXTargetDependency; target = 6A6A6A6A6A6A6A6A6A6A6A6A /* Gomoku */; targetProxy = 902902902902902902902902 /* PBXContainerItemProxy */; };
+/* End PBXTargetDependency section */
+
+/* Begin PBXNativeTarget section */
+		6B6B6B6B6B6B6B6B6B6B6B6B /* GomokuTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 7B7B7B7B7B7B7B7B7B7B7B7B /* Build configuration list for PBXNativeTarget "GomokuTests" */;
+			buildPhases = (
+				8B8B8B8B8B8B8B8B8B8B8B8B /* Sources */,
+				3B3B3B3B3B3B3B3B3B3B3B3B /* Frameworks */,
+				9B9B9B9B9B9B9B9B9B9B9B9B /* Resources */,
+			);
+			dependencies = (
+				801801801801801801801801 /* PBXTargetDependency */,
+			);
+			name = GomokuTests;
+			productName = GomokuTests;
+			productReference = 0B0B0B0B0B0B0B0B0B0B0B0B /* GomokuTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+		6C6C6C6C6C6C6C6C6C6C6C6C /* GomokuUITests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 7C7C7C7C7C7C7C7C7C7C7C7C /* Build configuration list for PBXNativeTarget "GomokuUITests" */;
+			buildPhases = (
+				8C8C8C8C8C8C8C8C8C8C8C8C /* Sources */,
+				3C3C3C3C3C3C3C3C3C3C3C3C /* Frameworks */,
+				9C9C9C9C9C9C9C9C9C9C9C9C /* Resources */,
+			);
+			dependencies = (
+				802802802802802802802802 /* PBXTargetDependency */,
+			);
+			name = GomokuUITests;
+			productName = GomokuUITests;
+			productReference = 0C0C0C0C0C0C0C0C0C0C0C0C /* GomokuUITests.xctest */;
+			productType = "com.apple.product-type.bundle.ui-testing";
+		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -97,6 +221,14 @@
 				TargetAttributes = {
 					6A6A6A6A6A6A6A6A6A6A6A6A = {
 						CreatedOnToolsVersion = 14.3;
+					};
+					6B6B6B6B6B6B6B6B6B6B6B6B = {
+						CreatedOnToolsVersion = 14.3;
+						TestTargetID = 6A6A6A6A6A6A6A6A6A6A6A6A;
+					};
+					6C6C6C6C6C6C6C6C6C6C6C6C = {
+						CreatedOnToolsVersion = 14.3;
+						TestTargetID = 6A6A6A6A6A6A6A6A6A6A6A6A;
 					};
 				};
 			};
@@ -114,18 +246,35 @@
 			projectRoot = "";
 			targets = (
 				6A6A6A6A6A6A6A6A6A6A6A6A /* Gomoku */,
+				6B6B6B6B6B6B6B6B6B6B6B6B /* GomokuTests */,
+				6C6C6C6C6C6C6C6C6C6C6C6C /* GomokuUITests */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
-		9A9A9A9A9A9A9A9A9A9A9A9A /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
+        9A9A9A9A9A9A9A9A9A9A9A9A /* Resources */ = {
+            isa = PBXResourcesBuildPhase;
+            buildActionMask = 2147483647;
+            files = (
+                1L1L1L1L1L1L1L1L1L1L1L1L /* Localizable.strings in Resources */,
+            );
+            runOnlyForDeploymentPostprocessing = 0;
+        };
+        9B9B9B9B9B9B9B9B9B9B9B9B /* Resources */ = {
+            isa = PBXResourcesBuildPhase;
+            buildActionMask = 2147483647;
+            files = (
+            );
+            runOnlyForDeploymentPostprocessing = 0;
+        };
+        9C9C9C9C9C9C9C9C9C9C9C9C /* Resources */ = {
+            isa = PBXResourcesBuildPhase;
+            buildActionMask = 2147483647;
+            files = (
+            );
+            runOnlyForDeploymentPostprocessing = 0;
+        };
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
@@ -138,10 +287,30 @@
 				1F1F1F1F1F1F1F1F1F1F1F1F /* GameViewModel.swift in Sources */,
 				1G1G1G1G1G1G1G1G1G1G1G1G /* GameBoard.swift in Sources */,
 				1D1D1D1D1D1D1D1D1D1D1D1D /* AIEngine.swift in Sources */,
-				1E1E1E1E1E1E1E1E1E1E1E1E /* AIUtilities.swift in Sources */,
+				1E1E1E1E1E1E1E1E1E1E1E1E1F /* AIEvaluator.swift in Sources */,
+				1H1H1H1H1H1H1H1H1H1H1H1H /* Domain.swift in Sources */,
 			);
-			runOnlyForDeploymentPostprocessing = 0;
+				runOnlyForDeploymentPostprocessing = 0;
 		};
+        8B8B8B8B8B8B8B8B8B8B8B8B /* Sources */ = {
+            isa = PBXSourcesBuildPhase;
+            buildActionMask = 2147483647;
+            files = (
+                1T1T1T1T1T1T1T1T1T1T1T1T /* GameBoardTests.swift in Sources */,
+                1T2T2T2T2T2T2T2T2T2T2T2T /* GameViewModelTests.swift in Sources */,
+                1T3T3T3T3T3T3T3T3T3T3T3T /* AIEngineTests.swift in Sources */,
+            );
+            runOnlyForDeploymentPostprocessing = 0;
+        };
+        8C8C8C8C8C8C8C8C8C8C8C8C /* Sources */ = {
+            isa = PBXSourcesBuildPhase;
+            buildActionMask = 2147483647;
+            files = (
+                1U1U1U1U1U1U1U1U1U1U1U1U /* GomokuUITests.swift in Sources */,
+                1U2U2U2U2U2U2U2U2U2U2U2U /* GomokuUITestsLaunchTests.swift in Sources */,
+            );
+            runOnlyForDeploymentPostprocessing = 0;
+        };
 /* End PBXSourcesBuildPhase section */
 
 /* Begin XCBuildConfiguration section */
@@ -263,7 +432,6 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
-				CODE_SIGN_ENTITLEMENTS = Gomoku/Gomoku.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				CURRENT_PROJECT_VERSION = 1;
@@ -280,7 +448,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.example.Gomoku;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
-				SWIFT_VERSION = 5.0;
+				SWIFT_VERSION = 5.7;
 			};
 			name = Debug;
 		};
@@ -289,7 +457,6 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
-				CODE_SIGN_ENTITLEMENTS = Gomoku/Gomoku.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				CURRENT_PROJECT_VERSION = 1;
@@ -306,10 +473,84 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.example.Gomoku;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
-				SWIFT_VERSION = 5.0;
+				SWIFT_VERSION = 5.7;
 			};
 			name = Release;
 		};
+        DE1DE1DE1DE1DE1DE1DE1DE1 /* Debug */ = {
+            isa = XCBuildConfiguration;
+            buildSettings = {
+                CODE_SIGN_STYLE = Automatic;
+                CURRENT_PROJECT_VERSION = 1;
+                GENERATE_INFOPLIST_FILE = YES;
+                IPHONEOS_DEPLOYMENT_TARGET = "16.0";
+                LD_RUNPATH_SEARCH_PATHS = (
+                    "$(inherited)",
+                    "@executable_path/Frameworks",
+                    "@loader_path/Frameworks",
+                );
+                PRODUCT_BUNDLE_IDENTIFIER = com.example.GomokuTests;
+                PRODUCT_NAME = "$(TARGET_NAME)";
+                SWIFT_VERSION = 5.7;
+                SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+            };
+            name = Debug;
+        };
+        DE2DE2DE2DE2DE2DE2DE2DE2 /* Release */ = {
+            isa = XCBuildConfiguration;
+            buildSettings = {
+                CODE_SIGN_STYLE = Automatic;
+                CURRENT_PROJECT_VERSION = 1;
+                GENERATE_INFOPLIST_FILE = YES;
+                IPHONEOS_DEPLOYMENT_TARGET = "16.0";
+                LD_RUNPATH_SEARCH_PATHS = (
+                    "$(inherited)",
+                    "@executable_path/Frameworks",
+                    "@loader_path/Frameworks",
+                );
+                PRODUCT_BUNDLE_IDENTIFIER = com.example.GomokuTests;
+                PRODUCT_NAME = "$(TARGET_NAME)";
+                SWIFT_VERSION = 5.7;
+            };
+            name = Release;
+        };
+        UE1UE1UE1UE1UE1UE1UE1UE1 /* Debug */ = {
+            isa = XCBuildConfiguration;
+            buildSettings = {
+                CODE_SIGN_STYLE = Automatic;
+                CURRENT_PROJECT_VERSION = 1;
+                GENERATE_INFOPLIST_FILE = YES;
+                IPHONEOS_DEPLOYMENT_TARGET = "16.0";
+                LD_RUNPATH_SEARCH_PATHS = (
+                    "$(inherited)",
+                    "@executable_path/Frameworks",
+                    "@loader_path/Frameworks",
+                );
+                PRODUCT_BUNDLE_IDENTIFIER = com.example.GomokuUITests;
+                PRODUCT_NAME = "$(TARGET_NAME)";
+                SWIFT_VERSION = 5.7;
+                SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+            };
+            name = Debug;
+        };
+        UE2UE2UE2UE2UE2UE2UE2UE2 /* Release */ = {
+            isa = XCBuildConfiguration;
+            buildSettings = {
+                CODE_SIGN_STYLE = Automatic;
+                CURRENT_PROJECT_VERSION = 1;
+                GENERATE_INFOPLIST_FILE = YES;
+                IPHONEOS_DEPLOYMENT_TARGET = "16.0";
+                LD_RUNPATH_SEARCH_PATHS = (
+                    "$(inherited)",
+                    "@executable_path/Frameworks",
+                    "@loader_path/Frameworks",
+                );
+                PRODUCT_BUNDLE_IDENTIFIER = com.example.GomokuUITests;
+                PRODUCT_NAME = "$(TARGET_NAME)";
+                SWIFT_VERSION = 5.7;
+            };
+            name = Release;
+        };
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -331,6 +572,26 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
+        7B7B7B7B7B7B7B7B7B7B7B7B /* Build configuration list for PBXNativeTarget "GomokuTests" */ = {
+            isa = XCConfigurationList;
+            buildConfigurations = (
+                DE1DE1DE1DE1DE1DE1DE1DE1 /* Debug */,
+                DE2DE2DE2DE2DE2DE2DE2DE2 /* Release */,
+            );
+            defaultConfigurationIsVisible = 0;
+            defaultConfigurationName = Release;
+        3L1L1L1L1L1L1L1L1L1L1L1L /* Base */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = Base; path = Base.lproj/Localizable.strings; sourceTree = "<group>"; };
+        3L2L2L2L2L2L2L2L2L2L2L2L /* ja */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ja; path = ja.lproj/Localizable.strings; sourceTree = "<group>"; };
+        };
+        7C7C7C7C7C7C7C7C7C7C7C7C /* Build configuration list for PBXNativeTarget "GomokuUITests" */ = {
+            isa = XCConfigurationList;
+            buildConfigurations = (
+                UE1UE1UE1UE1UE1UE1UE1UE1 /* Debug */,
+                UE2UE2UE2UE2UE2UE2UE2UE2 /* Release */,
+            );
+            defaultConfigurationIsVisible = 0;
+            defaultConfigurationName = Release;
+        };
 /* End XCConfigurationList section */
 	};
 	rootObject = AA1AA1AA1AA1AA1AA1AA1AA1 /* Project object */;
