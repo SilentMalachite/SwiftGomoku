@@ -5,6 +5,7 @@ Swift と SwiftUI で構築されたネイティブ iOS 五目並べアプリケ
 ![Swift](https://img.shields.io/badge/Swift-5.7-orange.svg)
 ![Platform](https://img.shields.io/badge/Platform-iOS%2016.0%2B-blue.svg)
 ![License](https://img.shields.io/badge/License-MIT-green.svg)
+[![iOS Build & Test](https://github.com/SilentMalachite/SwiftGomoku/actions/workflows/ci.yml/badge.svg)](https://github.com/SilentMalachite/SwiftGomoku/actions/workflows/ci.yml)
 
 ## 概要
 
