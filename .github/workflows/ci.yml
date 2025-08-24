@@ -14,8 +14,16 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
+      - name: Select Xcode 15.4
+        uses: maxim-lobanov/setup-xcode@v1
+        with:
+          xcode-version: '15.4'
+
       - name: Show Xcode version
         run: xcodebuild -version
+
+      - name: Install xcpretty
+        run: sudo gem install xcpretty --no-document
 
       - name: List available simulators (debug)
         run: xcrun simctl list devices
@@ -27,12 +35,13 @@ jobs:
             -scheme Gomoku \
             -destination 'platform=iOS Simulator,name=iPhone 15' \
             -derivedDataPath DerivedData \
-            test | xcpretty || xcpretty -r json-compilation-database
+            test | tee xcodebuild.log | xcpretty
 
       - name: Archive test logs (always)
         if: always()
         uses: actions/upload-artifact@v4
         with:
           name: DerivedData-Logs
-          path: DerivedData/Logs
-
+          path: |
+            DerivedData/Logs
+            xcodebuild.log
