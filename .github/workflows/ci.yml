@@ -1,0 +1,38 @@
+name: iOS Build & Test
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  build-and-test:
+    runs-on: macos-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Show Xcode version
+        run: xcodebuild -version
+
+      - name: List available simulators (debug)
+        run: xcrun simctl list devices
+
+      - name: Build and test (unit + UI)
+        run: |
+          set -euo pipefail
+          xcodebuild \
+            -scheme Gomoku \
+            -destination 'platform=iOS Simulator,name=iPhone 15' \
+            -derivedDataPath DerivedData \
+            test | xcpretty || xcpretty -r json-compilation-database
+
+      - name: Archive test logs (always)
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: DerivedData-Logs
+          path: DerivedData/Logs
+
