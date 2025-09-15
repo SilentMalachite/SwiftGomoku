@@ -14,6 +14,13 @@ class AIEngine {
     // MARK: - Properties
     private let evaluator = AIEvaluator()
     
+    // MARK: - Helper Functions
+    private func movePriority(_ move: (Int, Int), size: Int) -> Int {
+        let (row, col) = move
+        let center = size / 2
+        return -(abs(row - center) + abs(col - center)) // Negative for descending sort
+    }
+    
     // MARK: - Public Interface
     init() {}
     
@@ -58,7 +65,7 @@ class AIEngine {
     private func calculateBestMove(boardData: GameBoardDataSource, progressHandler: ((String, Int, Int) -> Void)? = nil) -> (Int, Int)? {
         var bestMove: (Int, Int)?
         var bestScore = Int.min
-        let alpha = Int.min
+        var alpha = Int.min
         let beta = Int.max
         var movesEvaluated = 0
         
@@ -70,15 +77,18 @@ class AIEngine {
             return (boardData.size / 2, boardData.size / 2)
         }
         
-        progressHandler?("Found \(relevantMoves.count) candidate moves", 0, 0)
+        progressHandler?(String(format: NSLocalizedString("Found %d candidate moves", comment: "AI progress"), relevantMoves.count), 0, 0)
+        
+        // Sort moves by priority for better performance
+        let sortedMoves = relevantMoves.sorted { movePriority($0, size: boardData.size) > movePriority($1, size: boardData.size) }
         
         // Evaluate each possible move
-        for (index, (row, col)) in relevantMoves.enumerated() {
+        for (index, (row, col)) in sortedMoves.enumerated() {
             if Task.isCancelled { return bestMove }
             var newBoard = board
             newBoard[row][col] = boardData.currentPlayer
             
-            progressHandler?("Evaluating move \(index + 1)/\(relevantMoves.count)", movesEvaluated, 1)
+            progressHandler?(String(format: NSLocalizedString("Evaluating move %d/%d", comment: "AI progress"), index + 1, relevantMoves.count), movesEvaluated, 1)
             
             let score = minimax(
                 board: newBoard,
@@ -96,11 +106,12 @@ class AIEngine {
             if score > bestScore {
                 bestScore = score
                 bestMove = (row, col)
-                progressHandler?("Found better move at (\(row), \(col))", movesEvaluated, Algorithm.maxDepth)
+                progressHandler?(String(format: NSLocalizedString("Found better move at (%d, %d)", comment: "AI progress"), row, col), movesEvaluated, Algorithm.maxDepth)
+                alpha = max(alpha, bestScore)
             }
         }
         
-        progressHandler?("Analysis complete", movesEvaluated, Algorithm.maxDepth)
+        progressHandler?(NSLocalizedString("Analysis complete", comment: "AI progress"), movesEvaluated, Algorithm.maxDepth)
         return bestMove
     }
     
@@ -109,23 +120,39 @@ class AIEngine {
         var bestScore = Int.min
         var bestMove: (Int, Int)?
         
-        for row in 0..<boardData.size {
-            for col in 0..<boardData.size {
-                if boardData.board[row][col] == .none {
-                    let score = evaluator.evaluatePosition(
-                        row: row,
-                        col: col,
-                        boardData: boardData
-                    )
-                    if score > bestScore {
-                        bestScore = score
-                        bestMove = (row, col)
-                    }
+        // Prefer center positions in fallback
+        let center = boardData.size / 2
+        let searchOrder = generateSearchOrder(center: center, size: boardData.size)
+        
+        for (row, col) in searchOrder {
+            if boardData.board[row][col] == .none {
+                let score = evaluator.evaluatePosition(
+                    row: row,
+                    col: col,
+                    boardData: boardData
+                )
+                if score > bestScore {
+                    bestScore = score
+                    bestMove = (row, col)
                 }
             }
         }
         
-        return bestMove
+        return bestMove ?? (center, center) // Ultimate fallback to center
+    }
+    
+    private func generateSearchOrder(center: Int, size: Int) -> [(Int, Int)] {
+        var positions: [(Int, Int)] = []
+        for row in 0..<size {
+            for col in 0..<size {
+                positions.append((row, col))
+            }
+        }
+        return positions.sorted { pos1, pos2 in
+            let dist1 = abs(pos1.0 - center) + abs(pos1.1 - center)
+            let dist2 = abs(pos2.0 - center) + abs(pos2.1 - center)
+            return dist1 < dist2
+        }
     }
     
     // MARK: - Minimax Algorithm
@@ -189,7 +216,7 @@ class AIEngine {
         movesEvaluated: inout Int
     ) -> Int {
         var maxScore = Int.min
-        let moves = getRelevantMoves(board: board, size: size)
+        let moves = getRelevantMoves(board: board, size: size, ordered: true)
         
         for (row, col) in moves {
             if Task.isCancelled { return maxScore }
@@ -211,7 +238,7 @@ class AIEngine {
             
             maxScore = max(maxScore, score)
             alpha = max(alpha, maxScore)
-            progressHandler?("Searching depth \(currentDepth)", movesEvaluated, currentDepth)
+            progressHandler?(String(format: NSLocalizedString("Searching depth %d", comment: "AI progress"), currentDepth), movesEvaluated, currentDepth)
             
             // Alpha-beta pruning
             if beta <= alpha {
@@ -235,7 +262,7 @@ class AIEngine {
     ) -> Int {
         var minScore = Int.max
         let opponent = player == .black ? Player.white : Player.black
-        let moves = getRelevantMoves(board: board, size: size)
+        let moves = getRelevantMoves(board: board, size: size, ordered: true)
         
         for (row, col) in moves {
             if Task.isCancelled { return minScore }
@@ -257,7 +284,7 @@ class AIEngine {
             
             minScore = min(minScore, score)
             beta = min(beta, minScore)
-            progressHandler?("Searching depth \(currentDepth)", movesEvaluated, currentDepth)
+            progressHandler?(String(format: NSLocalizedString("Searching depth %d", comment: "AI progress"), currentDepth), movesEvaluated, currentDepth)
             
             // Alpha-beta pruning
             if beta <= alpha {
@@ -269,7 +296,7 @@ class AIEngine {
     }
     
     // MARK: - Move Generation
-    private func getRelevantMoves(board: [[Player]], size: Int) -> [(Int, Int)] {
+    private func getRelevantMoves(board: [[Player]], size: Int, ordered: Bool = false) -> [(Int, Int)] {
         var relevantMoves: Set<Move> = []
         var hasPieces = false
         
@@ -295,9 +322,8 @@ class AIEngine {
         }
         
         // Sort moves by distance to center for better ordering
-        return relevantMoves
-            .sorted { $0.distanceToCenter(boardSize: size) < $1.distanceToCenter(boardSize: size) }
-            .map { ($0.row, $0.col) }
+        let moves = relevantMoves.map { ($0.row, $0.col) }
+        return ordered ? moves.sorted { movePriority($0, size: size) > movePriority($1, size: size) } : moves
     }
     
     private func addAdjacentMoves(

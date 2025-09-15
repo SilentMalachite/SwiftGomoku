@@ -47,11 +47,13 @@ struct GameBoard: GameBoardDataSource {
     }
     
     func checkForWinner() -> (winner: Player?, winningLine: [(Int, Int)]) {
+        // Check all positions for winning patterns
         for row in 0..<size {
             for col in 0..<size {
-                if board[row][col] != .none {
-                    if let line = checkWinFromPosition(row: row, col: col, player: board[row][col]) {
-                        return (board[row][col], line)
+                let player = board[row][col]
+                if player != .none {
+                    if let line = checkWinFromPosition(row: row, col: col, player: player) {
+                        return (player, line)
                     }
                 }
             }

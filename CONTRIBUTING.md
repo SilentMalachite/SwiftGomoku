@@ -1,246 +1,418 @@
-# Swift 五目並べへのコントリビューション
+# Contributing to Swift Gomoku 🎮
 
-Swift 五目並べへのコントリビューションを検討していただき、ありがとうございます！あなたのような方々のおかげで、Swift 五目並べは素晴らしいツールとなっています。
+Thank you for considering contributing to Swift Gomoku! Your contributions help make this project a great tool for iOS game development and Gomoku enthusiasts.
 
-## 行動規範
+<p align="center">
+  <a href="#code-of-conduct">Code of Conduct</a> •
+  <a href="#how-to-contribute">How to Contribute</a> •
+  <a href="#development-setup">Development Setup</a> •
+  <a href="#pull-request-process">PR Process</a> •
+  <a href="#style-guidelines">Style Guidelines</a>
+</p>
 
-このプロジェクトに参加することで、以下の行動規範を守ることが期待されます：
+---
 
-- 歓迎的で包括的な言葉遣いを使用する
-- 異なる視点や経験を尊重する
-- 建設的な批判を優雅に受け入れる
-- コミュニティにとって最善のことに焦点を当てる
-- 他のコミュニティメンバーへの共感を示す
+## 🤝 Code of Conduct
 
-## どのようにコントリビューションできますか？
+By participating in this project, you agree to abide by our [Code of Conduct](CODE_OF_CONDUCT.md). Please read it to understand our community standards.
 
-### バグの報告
+## 🚀 How to Contribute
 
-バグレポートを作成する前に、既存の issue を確認してください。新しく作成する必要がないかもしれません。バグレポートを作成する際は、可能な限り多くの詳細を含めてください：
+### 🐛 Reporting Bugs
 
-- **問題を特定するための明確で説明的なタイトル**を使用
-- **問題を再現する正確な手順**を可能な限り詳細に記述
-- **手順を示す具体的な例**を提供
-- **手順に従った後に観察された動作**を説明し、その動作の何が問題なのかを正確に指摘
-- **代わりに期待される動作とその理由**を説明
-- **説明した手順に従っていることを示し、問題を明確に示すスクリーンショット**を含める
-- **macOSバージョンとXcodeバージョン**を含める
+Before creating a bug report, please check existing issues to avoid duplicates. When creating a bug report, include:
 
-### 機能強化の提案
+- **🔍 Clear Title**: Use a descriptive title that identifies the problem
+- **📝 Detailed Steps**: Provide exact steps to reproduce the issue
+- **📱 Environment**: Include iOS version, device model, and app version
+- **📸 Screenshots**: Add screenshots to clarify the problem
+- **🎮 Game State**: Describe the game situation when the bug occurred
+- **♿ Accessibility**: Note if you're using assistive technologies
 
-機能強化の提案は GitHub issue として追跡されます。機能強化の提案を作成する際は、以下を含めてください：
+**Use our [Bug Report Template](.github/ISSUE_TEMPLATE/bug_report.md) for consistency.**
 
-- **提案を特定するための明確で説明的なタイトル**を使用
-- **提案された機能強化の段階的な説明**を可能な限り詳細に提供
-- **手順を示す具体的な例**を提供するか、Swift 五目並べの関連部分を指摘
-- **現在の動作**を説明し、**代わりに期待される動作とその理由**を説明
-- **手順を示したり、提案が関連する Swift 五目並べの部分を指摘するのに役立つスクリーンショットやアニメーションGIF**を含める
-- **この機能強化がほとんどの Swift 五目並べユーザーにとって有用である理由**を説明
+### ✨ Suggesting Features
 
-### 初めてのコードコントリビューション
+Feature suggestions are tracked as GitHub issues. When creating a feature request:
 
-どこからコントリビューションを始めるか分からない？これらの `beginner` と `help-wanted` issue から始めることができます：
+- **🎯 Problem Statement**: Clearly describe the problem or need
+- **💡 Proposed Solution**: Detail your suggested implementation
+- **🎮 Use Cases**: Provide specific scenarios where this would be useful
+- **📱 Platform Considerations**: Consider iOS, accessibility, and localization impacts
+- **🎨 Design Ideas**: Include mockups or wireframes if you have them
 
-- [初心者向け issue](https://github.com/SilentMalachite/Swift-Gomoku/labels/beginner) - 数行のコードとテスト1〜2個で済む issue
-- [ヘルプ募集 issue](https://github.com/SilentMalachite/Swift-Gomoku/labels/help%20wanted) - `beginner` issue よりも少し複雑な issue
+**Use our [Feature Request Template](.github/ISSUE_TEMPLATE/feature_request.md) for consistency.**
 
-### プルリクエスト
+### 🛠️ Code Contributions
 
-ここで説明するプロセスには、いくつかの目標があります：
+We welcome code contributions! Here are some areas where you can help:
 
-- Swift 五目並べの品質を維持する
-- ユーザーにとって重要な問題を修正する
-- Swift 五目並べを最高のものにするためにコミュニティを巻き込む
-- Swift 五目並べのメンテナーがコントリビューションをレビューするための持続可能なシステムを実現する
+#### 🎯 Good First Issues
+- 🐛 **Bug Fixes**: Fix reported issues
+- 📝 **Documentation**: Improve README, comments, or guides
+- 🧪 **Tests**: Add unit or UI tests
+- 🌍 **Localization**: Add new language support
+- ♿ **Accessibility**: Improve VoiceOver support
 
-メンテナーにコントリビューションを検討してもらうには、以下の手順に従ってください：
+#### 🚀 Advanced Contributions
+- 🤖 **AI Improvements**: Enhance minimax algorithm or evaluation
+- 🎨 **UI/UX**: Design improvements and animations
+- ⚡ **Performance**: Optimize game performance
+- 📱 **Platform Features**: iPad optimization, widgets, etc.
 
-1. **リポジトリをフォーク**し、`main` からブランチを作成
-2. **フォークをローカルにクローン**
-3. **新しい git ブランチで変更を行う**：
+## 🏗️ Development Setup
+
+### 📋 Prerequisites
+
+- **macOS**: 13.0 or later
+- **Xcode**: 14.0 or later
+- **Swift**: 5.7 or later
+- **Git**: Latest version
+- **iOS Simulator**: 16.0 or later
+
+### 🚀 Getting Started
+
+1. **Fork the Repository**
    ```bash
-   git checkout -b my-fix-branch main
+   # Click the Fork button on GitHub, then:
+   git clone https://github.com/YOUR_USERNAME/SwiftGomoku.git
+   cd SwiftGomoku
    ```
-4. **必要に応じてテストを作成/更新**
-5. **テストスイートがパスすることを確認**
-6. **既存のスタイルに従ってコードを書く**（SwiftLint が役立ちます）
-7. **コミットメッセージ規約に従って変更をコミット**
-8. **ブランチを GitHub にプッシュ**：
+
+2. **Set Up Upstream Remote**
    ```bash
-   git push origin my-fix-branch
+   git remote add upstream https://github.com/SilentMalachite/SwiftGomoku.git
+   git fetch upstream
    ```
-9. GitHub ウェブサイトから**プルリクエストを送信**
 
-#### コミットメッセージガイドライン
-
-- 現在形を使用（「Added feature」ではなく「Add feature」）
-- 命令形を使用（「Moves cursor to...」ではなく「Move cursor to...」）
-- 最初の行を72文字以下に制限
-- 最初の行の後で issue とプルリクエストを自由に参照
-- 適切な絵文字でコミットメッセージを始めることを検討：
-  - 🎨 `:art:` コードの形式/構造を改善する場合
-  - 🐎 `:racehorse:` パフォーマンスを改善する場合
-  - 📝 `:memo:` ドキュメントを書く場合
-  - 🐛 `:bug:` バグを修正する場合
-  - 🔥 `:fire:` コードやファイルを削除する場合
-  - ✅ `:white_check_mark:` テストを追加する場合
-  - 🔒 `:lock:` セキュリティを扱う場合
-  - ⬆️ `:arrow_up:` 依存関係をアップグレードする場合
-  - ⬇️ `:arrow_down:` 依存関係をダウングレードする場合
-
-## 開発セットアップ
-
-### 前提条件
-
-- macOS 13.0 以降
-- Xcode 14.0 以降
- - Swift 5.7 以降
-- Git
-
-### 始め方
-
-1. GitHub でリポジトリをフォーク
-2. フォークをローカルにクローン：
-   ```bash
-   git clone https://github.com/SilentMalachite/Swift-Gomoku.git
-   cd Swift-Gomoku
-   ```
-3. Xcode でプロジェクトを開く：
+3. **Open in Xcode**
    ```bash
    open Gomoku.xcodeproj
    ```
-4. プロジェクトをビルド（⌘B）して、すべてが正しくセットアップされていることを確認
-5. テストを実行（⌘U）して、テストスイートがパスすることを確認
 
-### テストの実行
+4. **Verify Setup**
+   - Build the project (⌘B)
+   - Run tests (⌘U)
+   - Run the app (⌘R)
 
-変更を送信する前に、すべてのテストがパスすることを確認してください：
+### 🧪 Running Tests
 
 ```bash
-# ユニットテストを実行
-xcodebuild test -scheme Gomoku -destination 'platform=iOS Simulator,name=iPhone 15' -only-testing:GomokuTests
+# All tests
+xcodebuild test -scheme Gomoku -destination 'platform=iOS Simulator,name=iPhone 15'
 
-# UIテストを実行
-xcodebuild test -scheme Gomoku -destination 'platform=iOS Simulator,name=iPhone 15' -only-testing:GomokuUITests
+# Unit tests only
+xcodebuild test -scheme Gomoku -only-testing:GomokuTests -destination 'platform=iOS Simulator,name=iPhone 15'
+
+# UI tests only
+xcodebuild test -scheme Gomoku -only-testing:GomokuUITests -destination 'platform=iOS Simulator,name=iPhone 15'
+
+# With coverage
+xcodebuild test -scheme Gomoku -destination 'platform=iOS Simulator,name=iPhone 15' -enableCodeCoverage YES
 ```
 
-### UI識別子の原則（重要）
+## 📝 Pull Request Process
 
-UIテストは表示テキストに依存せず、以下のアクセシビリティ識別子を使用してください：
+### 🌿 Branching Strategy
 
-- 盤面とセル/石: `GameBoard`, `Cell_{row}_{col}`, `Stone_{color}_{row}_{col}`
-- 操作: `AI Enabled`, `New Game`, `AI Move`
-- 状態表示: `CurrentPlayerLabel`, `AIStatusLabel`, `WinnerLabel`
+1. **Create a Feature Branch**
+   ```bash
+   git checkout -b feature/your-feature-name
+   # or
+   git checkout -b fix/bug-description
+   ```
 
-表示文言はローカライズされるため、`staticTexts["..."]` のような固定文字列参照は避け、識別子ベースで選択/検証してください。
+2. **Keep Your Branch Updated**
+   ```bash
+   git fetch upstream
+   git rebase upstream/main
+   ```
 
-### ローカライズ方針
+### 📤 Submitting Your PR
 
-- 文字列は `NSLocalizedString` で参照し、`Localizable.strings` にキーを定義します。
-- 既定（Base）は `Gomoku/Base.lproj/Localizable.strings`、日本語は `Gomoku/ja.lproj/Localizable.strings` に追加します。
-- 新規UIやエラーメッセージを追加する場合は、必ず各言語にキーを追加し、レビュー時に翻訳が欠落していないことを確認してください。
+1. **Push Your Branch**
+   ```bash
+   git push origin feature/your-feature-name
+   ```
 
-## スタイルガイド
+2. **Create Pull Request**
+   - Use our [PR Template](.github/PULL_REQUEST_TEMPLATE.md)
+   - Link related issues
+   - Provide clear description of changes
+   - Add screenshots for UI changes
 
-### Swift スタイルガイド
+3. **Address Review Feedback**
+   - Make requested changes
+   - Push updates to your branch
+   - Respond to reviewer comments
 
-- [Swift API デザインガイドライン](https://swift.org/documentation/api-design-guidelines/)に従う
-- インデントに4つのスペースを使用（Xcode を適切に設定）
-- 可能な限り `var` より `let` を優先
-- 意味のある変数名と関数名を使用
-- 関数を小さく、単一のタスクに焦点を当てる
-- 自己文書化コードを書き、必要な場合のみコメントを追加
-- コードがより明確になる場合は Swift の型推論を使用
-- プロジェクトで使用されている MVVM アーキテクチャパターンに従う
-- すべてのパブリック API にドキュメントコメントがあることを確認
+### ✅ PR Checklist
 
-### コードの整理
+Before submitting your PR, ensure:
 
-- 関連する機能をまとめる
-- エクステンションを使用してコードを論理的に整理
-- 既存のファイル構造と命名規則に従う
-- UI関連のコードを適切な View ファイルに配置
-- ビジネスロジックを ViewModel または Model ファイルに保持
-- レイヤー間の関心事の分離を維持
+#### 🔍 Code Quality
+- [ ] Code follows project style guidelines
+- [ ] Self-review completed
+- [ ] Code is commented where necessary
+- [ ] No new warnings generated
+- [ ] Debug statements removed
 
-### ドキュメントスタイルガイド
+#### 🧪 Testing
+- [ ] Tests added/updated for new functionality
+- [ ] All tests pass locally
+- [ ] UI tests use accessibility identifiers
+- [ ] Accessibility tested with VoiceOver
 
-- [Markdown](https://daringfireball.net/projects/markdown/)を使用
-- 関数とクラスをバッククォートで参照：`GameBoard`
-- 複数行のコードにはコードブロックを使用
-- Swift ドキュメントコメントですべてのパブリック API を文書化
-- 役立つ場合はドキュメントに例を含める
-- ドキュメントをコードの変更と同期させる
+#### 📚 Documentation
+- [ ] Documentation updated if needed
+- [ ] CHANGELOG.md updated for notable changes
+- [ ] Code comments are clear and helpful
 
-## テストガイドライン
+#### 🌍 Internationalization
+- [ ] New strings added to all `Localizable.strings` files
+- [ ] All user-facing text uses `NSLocalizedString`
+- [ ] Tested with both English and Japanese
 
-### テストの作成
+## 📐 Style Guidelines
 
-- すべての新機能に対してテストを作成
-- AAA パターンに従う：Arrange（準備）、Act（実行）、Assert（検証）
-- 何がテストされているかを説明する説明的なテスト名を使用
-- エッジケースとエラー条件をテスト
-- テストカバレッジを80%以上に維持
-- 外部依存関係を適切にモック
+### 🧑‍💻 Swift Code Style
 
-### テスト構造
+We follow [Swift API Design Guidelines](https://swift.org/documentation/api-design-guidelines/) with these additions:
 
 ```swift
-func testDescriptiveNameExplainingWhatIsBeingTested() {
-    // Arrange（準備）
+// ✅ Good: Clear, descriptive names
+func calculateBestMove(for boardState: GameBoard) -> Position?
+let isAIThinking: Bool
+var winningPositions: [Position]
+
+// ❌ Avoid: Abbreviated or unclear names
+func calcMove(for b: GameBoard) -> Position?
+let thinking: Bool
+var positions: [Position]
+```
+
+#### 🏗️ Architecture Guidelines
+
+- **MVVM Pattern**: Follow established MVVM structure
+- **Single Responsibility**: Each class/struct should have one clear purpose
+- **Dependency Injection**: Prefer injecting dependencies over singletons
+- **Protocol-Oriented**: Use protocols for testability and flexibility
+
+```swift
+// ✅ Good: Protocol-oriented design
+protocol GameBoardDataSource {
+    var board: [[Player]] { get }
+    var currentPlayer: Player { get }
+    var size: Int { get }
+}
+
+// ✅ Good: Clear separation of concerns
+class GameViewModel: ObservableObject {
+    @Published private(set) var gameBoard: GameBoard
+    private let aiEngine: AIEngine
+    
+    func makeMove(row: Int, col: Int) -> Result<Void, GameError> {
+        // Game logic here
+    }
+}
+```
+
+### 🎨 SwiftUI Guidelines
+
+```swift
+// ✅ Good: Extracted view components
+struct StoneView: View {
+    let player: Player
+    let isWinning: Bool
+    
+    var body: some View {
+        Circle()
+            .fill(player.color)
+            .overlay(winningOverlay)
+    }
+}
+
+// ✅ Good: Accessibility support
+.accessibilityLabel("Black stone at row \(row), column \(col)")
+.accessibilityIdentifier("Stone_\(player.rawValue)_\(row)_\(col)")
+```
+
+### 🧪 Testing Guidelines
+
+#### Unit Tests
+```swift
+// ✅ Good: AAA pattern (Arrange, Act, Assert)
+func testMakeMoveUpdatesCurrentPlayer() {
+    // Arrange
     let viewModel = GameViewModel()
     
-    // Act（実行）
-    viewModel.makeMove(at: Position(row: 7, col: 7))
+    // Act
+    let result = viewModel.makeMove(row: 7, col: 7)
     
-    // Assert（検証）
+    // Assert
+    XCTAssertEqual(result, .success(()))
     XCTAssertEqual(viewModel.currentPlayer, .white)
 }
 ```
 
-## レビュープロセス
+#### UI Tests
+```swift
+// ✅ Good: Use accessibility identifiers
+let newGameButton = app.buttons["New Game"]
+newGameButton.tap()
 
-### 期待すべきこと
+// ❌ Avoid: Using display text (breaks with localization)
+let button = app.buttons["新規ゲーム"] // Don't do this!
+```
 
-1. **初期レビュー**: メンテナーが3〜5日以内にPRをレビュー
-2. **フィードバック**: コメントや変更リクエストを受け取る可能性
-3. **更新**: 要求された変更を行い、ブランチにプッシュ
-4. **承認**: 承認されたら、PRがマージされる
-5. **認識**: コントリビューションが認められる
+### 🌍 Localization Guidelines
 
-### レビュー基準
+```swift
+// ✅ Good: Localized strings
+Text(NSLocalizedString("Current Player:", comment: "Label for current player"))
 
-- コード品質とスタイルガイドへの準拠
-- テストカバレッジと品質
-- ドキュメントの完全性
-- パフォーマンスへの影響
-- セキュリティの考慮事項
-- 既存機能との互換性
+// ✅ Good: Parameterized strings
+String(format: NSLocalizedString("%@ wins!", comment: "Winner announcement"), winner.localizedName)
 
-## コミュニティ
+// ❌ Avoid: Hardcoded strings
+Text("Current Player:") // Don't do this!
+```
 
-### ヘルプを得る
+### ♿ Accessibility Guidelines
 
-- 既存の issue とディスカッションを確認
-- issue のコメントで質問
-- 忍耐強く、敬意を持つ
-- 可能な時は他の人を助ける
+```swift
+// ✅ Good: Comprehensive accessibility
+.accessibilityLabel("Empty cell at row \(row), column \(col)")
+.accessibilityHint("Double tap to place \(currentPlayer.localizedName) stone")
+.accessibilityIdentifier("Cell_\(row)_\(col)")
+.accessibilityAddTraits(.isButton)
+```
 
-### 行動規範違反
+## 📐 Commit Message Guidelines
 
-行動規範の違反を目撃したり経験した場合：
+Use [Conventional Commits](https://www.conventionalcommits.org/) format:
 
-1. インシデントを文書化
-2. プロジェクトメンテナーに報告
-3. 調査のための時間を待つ
-4. 解決プロセスを尊重
+```
+type(scope): description
 
-## 認識
+[optional body]
 
-承認されたプルリクエストを送信したコントリビューターは以下で認識されます：
+[optional footer]
+```
 
-- プロジェクトの README.md コントリビューターセクション
-- 重要なコントリビューションのリリースノート
-- 特別なコントリビューションへの特別な言及
+### 🏷️ Types
+- `feat`: New feature
+- `fix`: Bug fix
+- `docs`: Documentation changes
+- `style`: Code style changes (formatting, etc.)
+- `refactor`: Code refactoring
+- `test`: Adding or updating tests
+- `chore`: Maintenance tasks
 
-Swift 五目並べへのコントリビューションありがとうございます！🎮
+### 📝 Examples
+```bash
+# Good examples
+git commit -m "feat(ai): improve minimax algorithm performance"
+git commit -m "fix(ui): resolve VoiceOver navigation issue"
+git commit -m "docs: update README with new setup instructions"
+
+# With body and breaking change
+git commit -m "feat(game): add undo/redo functionality
+
+Implement undo/redo stack with proper state management.
+Includes UI buttons and keyboard shortcuts.
+
+BREAKING CHANGE: GameViewModel API changed"
+```
+
+## 🎮 Game-Specific Guidelines
+
+### 🤖 AI Development
+- **Fair Play**: Ensure AI remains challenging but fair
+- **Performance**: Optimize for mobile device constraints
+- **Difficulty**: Consider different skill levels
+- **Accessibility**: Provide clear AI status feedback
+
+### 🎯 Game Balance
+- **Traditional Rules**: Maintain classic Gomoku rules
+- **User Experience**: Prioritize intuitive interactions
+- **Accessibility**: Ensure all players can enjoy the game
+- **Localization**: Consider cultural gaming preferences
+
+## 🔍 Review Process
+
+### 👀 What Reviewers Look For
+
+1. **Code Quality**: Clean, readable, maintainable code
+2. **Testing**: Adequate test coverage and quality
+3. **Documentation**: Clear comments and updated docs
+4. **Performance**: No negative impact on game performance
+5. **Accessibility**: Proper VoiceOver and accessibility support
+6. **Localization**: Proper internationalization support
+7. **Game Balance**: Changes don't break game fairness
+
+### ⏱️ Timeline Expectations
+
+- **Initial Review**: 3-5 business days
+- **Follow-up Reviews**: 1-2 business days
+- **Minor Changes**: Same day for simple fixes
+- **Major Features**: May require multiple review rounds
+
+## 🎯 Issue Labels
+
+We use these labels to organize issues:
+
+### 🏷️ Type Labels
+- `bug` - Something isn't working
+- `enhancement` - New feature or improvement
+- `documentation` - Documentation improvements
+- `question` - Questions or discussions
+
+### 🎚️ Priority Labels
+- `priority: critical` - Breaks core functionality
+- `priority: high` - Important improvements
+- `priority: medium` - Nice to have
+- `priority: low` - Future considerations
+
+### 🎮 Domain Labels
+- `ai` - AI engine and algorithms
+- `ui` - User interface and design
+- `accessibility` - Accessibility features
+- `localization` - Internationalization
+- `testing` - Test improvements
+- `performance` - Performance optimizations
+
+### 👥 Contributor Labels
+- `good first issue` - Good for newcomers
+- `help wanted` - Extra attention needed
+- `hacktoberfest` - Hacktoberfest eligible
+
+## 🏆 Recognition
+
+Contributors are recognized in several ways:
+
+- **🎖️ README Credits**: Listed in the contributors section
+- **📋 Release Notes**: Mentioned for significant contributions
+- **🏅 Special Thanks**: Highlighted for exceptional contributions
+- **💬 Social Media**: Shared on project social accounts
+
+## 🆘 Getting Help
+
+### 📚 Resources
+- **📖 Documentation**: Check README and docs first
+- **🔍 Search Issues**: Look for existing discussions
+- **💬 Discussions**: Use GitHub Discussions for questions
+- **📧 Direct Contact**: Reach out to maintainers for sensitive issues
+
+### 🤝 Community
+- **👥 Be Patient**: Maintainers are volunteers
+- **🙏 Be Respectful**: Follow our Code of Conduct
+- **📖 Be Helpful**: Help others when you can
+- **🎉 Celebrate**: Acknowledge others' contributions
+
+---
+
+<p align="center">
+  <strong>🎮 Happy Contributing! 🚀</strong><br>
+  <sub>Thank you for making Swift Gomoku better for everyone!</sub>
+</p>

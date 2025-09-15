@@ -50,7 +50,7 @@ class GameViewModel: ObservableObject {
     
     var alertMessage: String {
         if let winner = winner {
-            return "\(winner.rawValue) wins!"
+            return String(format: NSLocalizedString("%@ wins!", comment: "winner announcement"), winner.localizedName)
         } else if isGameOver {
             return NSLocalizedString("It's a draw!", comment: "")
         } else {
@@ -183,6 +183,10 @@ class GameViewModel: ObservableObject {
             }
 
             if let (row, col) = chosenMove, !isGameOver {
+                // Final safety checks before applying AI move
+                guard isAIEnabled && currentPlayer == .white && gameBoard.isValidMove(row: row, col: col) else {
+                    return
+                }
                 aiThinkingProgress = NSLocalizedString("Making move...", comment: "")
                 _ = makeMove(row: row, col: col)
             }

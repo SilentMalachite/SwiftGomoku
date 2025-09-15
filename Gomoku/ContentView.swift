@@ -43,12 +43,12 @@ struct ContentView: View {
                         
                         if viewModel.aiEvaluatedMoves > 0 {
                             HStack(spacing: 15) {
-                                Label("\(viewModel.aiEvaluatedMoves) positions", systemImage: "checkmark.circle")
+                                Label(String(format: NSLocalizedString("%d positions", comment: "evaluated positions count"), viewModel.aiEvaluatedMoves), systemImage: "checkmark.circle")
                                     .font(.caption)
                                     .foregroundColor(.secondary)
                                 
                                 if viewModel.aiSearchDepth > 0 {
-                                    Label("Depth: \(viewModel.aiSearchDepth)", systemImage: "arrow.down.circle")
+                                    Label(String(format: NSLocalizedString("Depth: %d", comment: "search depth"), viewModel.aiSearchDepth), systemImage: "arrow.down.circle")
                                         .font(.caption)
                                         .foregroundColor(.secondary)
                                 }
@@ -59,41 +59,47 @@ struct ContentView: View {
                     .background(Color.blue.opacity(0.1))
                     .cornerRadius(8)
                 } else {
-                    Text("\(NSLocalizedString("Current Player:", comment: "")) \(viewModel.currentPlayer.rawValue)")
+                    Text("\(NSLocalizedString("Current Player:", comment: "")) \(viewModel.currentPlayer.localizedName)")
                         .font(.title2)
                         .accessibilityLabel(NSLocalizedString("Current Player:", comment: ""))
-                        .accessibilityValue(viewModel.currentPlayer.rawValue)
-                        .accessibilityHint("The player who should make the next move")
+                        .accessibilityValue(viewModel.currentPlayer.localizedName)
+                        .accessibilityHint(NSLocalizedString("The player who should make the next move", comment: "current player hint"))
                         .accessibilityIdentifier("CurrentPlayerLabel")
                 }
                 
                 Spacer()
                 
                 if let winner = viewModel.winner {
-                    Text("\(NSLocalizedString("Winner:", comment: "")) \(winner.rawValue)")
+                    Text("\(NSLocalizedString("Winner:", comment: "")) \(winner.localizedName)")
                         .font(.title2)
                         .foregroundColor(.green)
                         .accessibilityIdentifier("WinnerLabel")
                         .accessibilityLabel(NSLocalizedString("Game Winner", comment: ""))
-                        .accessibilityValue("\(winner.rawValue) has won the game")
+                        .accessibilityValue(String(format: NSLocalizedString("%@ has won the game", comment: "winner announcement"), winner.localizedName))
                         .accessibilityAddTraits(.isHeader)
                 }
             }
             .padding(.horizontal)
             
             GeometryReader { geometry in
-                let boardSize = min(geometry.size.width, geometry.size.height) - 40
-                let cellSize = boardSize / CGFloat(15)
+                let boardPixels = min(geometry.size.width, geometry.size.height) - 40
+                let gridSize = viewModel.boardSize
+                let cellSize = boardPixels / CGFloat(gridSize)
                 
                 ZStack {
-                    BoardGrid(size: 15, cellSize: cellSize)
+                    BoardGrid(size: gridSize, cellSize: cellSize)
                         .accessibilityIdentifier("GameBoard")
                         .accessibilityLabel(NSLocalizedString("Game Board", comment: ""))
-                        .accessibilityHint(NSLocalizedString("15 by 15 grid for playing Gomoku", comment: ""))
+                        .accessibilityHint(
+                            String(
+                                format: NSLocalizedString("%d by %d grid for playing Gomoku", comment: "grid description"),
+                                gridSize, gridSize
+                            )
+                        )
                         .accessibilityElement(children: .ignore)
                     
-                    ForEach(0..<15, id: \.self) { row in
-                        ForEach(0..<15, id: \.self) { col in
+                    ForEach(0..<gridSize, id: \.self) { row in
+                        ForEach(0..<gridSize, id: \.self) { col in
                             StoneView(
                                 player: viewModel.board[row][col],
                                 isWinning: viewModel.winningLine.contains { $0.0 == row && $0.1 == col }
@@ -115,7 +121,7 @@ struct ContentView: View {
                         }
                     }
                 }
-                .frame(width: boardSize, height: boardSize)
+                .frame(width: boardPixels, height: boardPixels)
                 .frame(maxWidth: .infinity, maxHeight: .infinity)
             }
             
@@ -153,7 +159,7 @@ struct ContentView: View {
             }
         }
         .alert(alertTitle, isPresented: $showingAlert) {
-            Button("OK") { }
+            Button(NSLocalizedString("OK", comment: "Alert OK button")) { }
         } message: {
             Text(alertMessage)
         }
@@ -161,28 +167,43 @@ struct ContentView: View {
     
     private func getAccessibilityLabel(row: Int, col: Int) -> String {
         let player = viewModel.board[row][col]
-        let position = "Row \(row + 1), Column \(col + 1)"
-        
+        let position = String(
+            format: NSLocalizedString("Row %d, Column %d", comment: "grid coordinates"),
+            row + 1, col + 1
+        )
         if player == .none {
-            return "Empty cell at \(position)"
+            return String(
+                format: NSLocalizedString("Empty cell at %@", comment: "empty cell label"),
+                position
+            )
         } else {
             let isWinning = viewModel.winningLine.contains { $0.0 == row && $0.1 == col }
-            let winningText = isWinning ? " (winning stone)" : ""
-            return "\(player.rawValue) stone at \(position)\(winningText)"
+            let base = String(
+                format: NSLocalizedString("%@ stone at %@", comment: "stone label"),
+                player.localizedName, position
+            )
+            if isWinning {
+                return base + " (" + NSLocalizedString("winning stone", comment: "winning suffix") + ")"
+            } else {
+                return base
+            }
         }
     }
-    
+
     private func getAccessibilityHint(row: Int, col: Int) -> String {
         if viewModel.board[row][col] == .none {
             if !viewModel.isAIThinking && !viewModel.isGameOver {
-                return "Double tap to place \(viewModel.currentPlayer.rawValue) stone here"
+                return String(
+                    format: NSLocalizedString("Double tap to place %@ stone here", comment: "place hint"),
+                    viewModel.currentPlayer.localizedName
+                )
             } else if viewModel.isAIThinking {
-                return "AI is thinking, please wait"
+                return NSLocalizedString("AI is thinking, please wait", comment: "thinking hint")
             } else if viewModel.isGameOver {
-                return "Game is over, start a new game to play"
+                return NSLocalizedString("Game is over, start a new game to play", comment: "game over hint")
             }
         }
-        return "This position is already occupied"
+        return NSLocalizedString("This position is already occupied", comment: "occupied hint")
     }
     
     private func getAccessibilityTraits(row: Int, col: Int) -> AccessibilityTraits {
@@ -205,7 +226,11 @@ struct ContentView: View {
         switch result {
         case .success:
             // Announce move for VoiceOver users
-            let moveAnnouncement = "\(viewModel.currentPlayer == .black ? "White" : "Black") placed stone at row \(row + 1), column \(col + 1)"
+            let previousPlayer = viewModel.currentPlayer == .black ? Player.white : Player.black
+            let moveAnnouncement = String(
+                format: NSLocalizedString("%@ placed stone at row %d, column %d", comment: "move announcement"),
+                previousPlayer.localizedName, row + 1, col + 1
+            )
             UIAccessibility.post(notification: .announcement, argument: moveAnnouncement)
             
             if viewModel.shouldShowAlert {
@@ -217,7 +242,7 @@ struct ContentView: View {
                 UIAccessibility.post(notification: .screenChanged, argument: alertMessage)
             }
         case .failure(let error):
-            alertTitle = "Invalid Move"
+            alertTitle = NSLocalizedString("Invalid Move", comment: "")
             alertMessage = error.localizedDescription
             showingAlert = true
             
@@ -263,7 +288,6 @@ struct StoneView: View {
     @Environment(\.accessibilityReduceMotion) private var reduceMotion
     @State private var animationScale: CGFloat = 1.0
     @State private var glowOpacity: Double = 0.0
-    @State private var isAnnounced: Bool = false
     
     var body: some View {
         if player != .none {
@@ -324,13 +348,6 @@ struct StoneView: View {
                     withAnimation {
                         animationScale = 1.1
                         glowOpacity = 0.6
-                    }
-                    // Announce winning stones for VoiceOver users
-                    if !isAnnounced {
-                        DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
-                            UIAccessibility.post(notification: .announcement, argument: "\(player.rawValue) has won the game!")
-                            isAnnounced = true
-                        }
                     }
                 }
             }

@@ -69,7 +69,7 @@ class AIEvaluator {
         let currentPlayer = boardData.currentPlayer
         let opponent = currentPlayer == .black ? Player.white : Player.black
         
-        // Evaluate for both players
+        // Evaluate offensive potential
         score += evaluatePlayerPosition(
             row: row,
             col: col,
@@ -77,6 +77,7 @@ class AIEvaluator {
             boardData: boardData
         ) * Evaluation.opponentMultiplier
         
+        // Evaluate defensive necessity
         score += evaluatePlayerPosition(
             row: row,
             col: col,

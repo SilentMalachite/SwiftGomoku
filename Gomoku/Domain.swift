@@ -8,6 +8,16 @@ enum Player: String, CaseIterable {
     case none = ""
 }
 
+extension Player {
+    var localizedName: String {
+        switch self {
+        case .black: return NSLocalizedString("Black", comment: "Player name")
+        case .white: return NSLocalizedString("White", comment: "Player name")
+        case .none: return ""
+        }
+    }
+}
+
 enum GameError: LocalizedError {
     case invalidMove(reason: String)
     case gameAlreadyOver
@@ -38,4 +48,3 @@ protocol GameBoardDataSource {
     var currentPlayer: Player { get }
     var size: Int { get }
 }
-

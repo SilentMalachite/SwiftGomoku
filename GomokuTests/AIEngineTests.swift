@@ -95,6 +95,23 @@ final class AIEngineTests: XCTestCase {
         XCTAssertNotNil(move)
     }
     
+    func testAIPerformanceWithManyMoves() {
+        // Arrange - 盤面に多くの石を配置
+        var board = Array(repeating: Array(repeating: Player.none, count: 15), count: 15)
+        for i in 0..<10 {
+            board[7][i] = i % 2 == 0 ? .black : .white
+        }
+        let boardData = TestBoardDataSource(board: board, currentPlayer: .white, size: 15)
+        
+        // Act & Assert - タイムアウトしないことを確認
+        let startTime = Date()
+        let move = aiEngine.getBestMove(for: boardData)
+        let duration = Date().timeIntervalSince(startTime)
+        
+        XCTAssertNotNil(move)
+        XCTAssertLessThan(duration, 5.0, "AI should complete within 5 seconds")
+    }
+    
     private func createTestBoard() -> [[Player]] {
         var board = Array(repeating: Array(repeating: Player.none, count: 15), count: 15)
         // いくつかの石を配置
